@@ -1,0 +1,6 @@
+[submodule "assembler-hooker-injector"]
+	path = assembler-hooker-injector
+	url = https://github.com/daedsidog/assembler-hooker-injector
+[submodule "win-dll-loader"]
+	path = win-dll-loader
+	url = https://github.com/daedsidog/win-dll-loader
