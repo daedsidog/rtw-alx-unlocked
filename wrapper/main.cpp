@@ -21,7 +21,6 @@ int main(int argc, char **argv) {
 
     // Launch the target process.
     // &std::string[0] is equivalent to char*.
-    std::cout << args.str() << std::endl;
     if (CreateProcess(nullptr, &(args.str())[0], nullptr, nullptr, FALSE,
                       CREATE_SUSPENDED, nullptr, nullptr, &start_info,
                       &process_info)) {

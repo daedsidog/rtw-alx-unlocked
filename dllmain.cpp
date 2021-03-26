@@ -1,6 +1,8 @@
 #include <iostream>
 #include <windows.h>
 
+#include "patches/naval_invasions.hpp"
+
 bool WINAPI DllMain(HINSTANCE hinst, DWORD call_reason, LPVOID reserved) {
     switch (call_reason) {
     case DLL_PROCESS_ATTACH:
@@ -50,6 +52,9 @@ bool WINAPI DllMain(HINSTANCE hinst, DWORD call_reason, LPVOID reserved) {
         std::cerr.clear();
         std::wcin.clear();
         std::cin.clear();
+
+        // Apply patches
+        naval_invasions::patch();
 #endif
         std::cout << "Patching complete." << std::endl;
 #ifdef __DEBUG__
