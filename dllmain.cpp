@@ -51,6 +51,10 @@ bool WINAPI DllMain(HINSTANCE hinst, DWORD call_reason, LPVOID reserved) {
         std::wcin.clear();
         std::cin.clear();
 #endif
+        std::cout << "Patching complete." << std::endl;
+#ifdef __DEBUG__
+        system("pause");
+#endif
         break;
     }
     return true;
