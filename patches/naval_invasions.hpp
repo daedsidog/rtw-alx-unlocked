@@ -1,6 +1,6 @@
 #define IMAGE_BASE 0x400000
 
-#ifndef STEAM
+#ifdef STEAM
 #define naval_invasions_patch_start 0x8faaf9 - IMAGE_BASE
 #define naval_invasions_patch_end   0x8faafe - IMAGE_BASE
 #else
