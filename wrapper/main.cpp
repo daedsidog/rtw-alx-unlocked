@@ -11,15 +11,22 @@
 
 #define BUFSIZE 1024
 #define EXE_NAME "alx.exe"
-#define DLL_NAME "rtw-alx-unlocked.dll"
+#define DLL_BASE_NAME "rtw-alx-unlocked"
 
 int main(int argc, char **argv) {
     STARTUPINFO start_info = {sizeof(start_info)};
     PROCESS_INFORMATION process_info;
-
+    std::string dll_name = DLL_BASE_NAME;
+#ifdef STEAM
+    dll_name = dll_name + "_steam";
+#endif
+#ifdef DEBUG
+    dll_name = dll_name + "_d";
+#endif
+    dll_name = dll_name + ".dll";
     // Format passed down to loader to pass to process.
     std::stringstream args;
-    args << EXE_NAME << " " << DLL_NAME << " -args";
+    args << EXE_NAME << " " << dll_name << " -args";
     for (int i = 1; i < argc; ++i) {
         args << " " << argv[i];
     }
@@ -38,7 +45,7 @@ int main(int argc, char **argv) {
             return -1;
         }
         if (WriteProcessMemory(process_info.hProcess, page,
-                               DLL_NAME, sizeof(DLL_NAME),
+                               dll_name.c_str(), dll_name.length(),
                                nullptr) == 0) {
             std::cerr << "WriteProcessMemory error: " << GetLastError()
                       << std::endl;
@@ -58,7 +65,7 @@ int main(int argc, char **argv) {
             return -1;
         }
         CloseHandle(thread);
-        std::cout << "Loaded " << DLL_NAME << std::endl;
+        std::cout << "Loaded " << dll_name << std::endl;
         if (ResumeThread(process_info.hThread) == -1) {
             std::cerr << "ResumeThread error: " << GetLastError() << std::endl;
             return -1;
