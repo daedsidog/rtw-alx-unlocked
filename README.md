@@ -1,5 +1,5 @@
 # rtw-alx-unlocked
-A memory patcher for `RomeTW-ALX.exe` for Windows with the goal of fixing bugs & removing hardcoded limits.
+A memory patch for `RomeTW-ALX.exe` for Windows with the goal of fixing bugs & removing hardcoded limits.
 
 # Changes
 * Fix AI not using naval invasions.
