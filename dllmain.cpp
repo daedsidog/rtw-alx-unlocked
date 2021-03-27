@@ -8,7 +8,7 @@ bool WINAPI DllMain(HINSTANCE hinst, DWORD call_reason, LPVOID reserved) {
     case DLL_PROCESS_ATTACH:
 
         // Allocate a console if we're in debug mode.
-#ifdef __DEBUG__
+#ifdef DEBUG
         AllocConsole();
         bool result = true;
         FILE* fp;
@@ -54,10 +54,17 @@ bool WINAPI DllMain(HINSTANCE hinst, DWORD call_reason, LPVOID reserved) {
         std::cin.clear();
 
         // Apply patches
+        std::cout << "Applying ";
+#ifdef STEAM
+        std::cout << "Steam ";
+#else
+        std::cout << "disk ";
+#endif
+        std::cout << "patches..." << std::endl;
         naval_invasions::patch();
 #endif
         std::cout << "Patching complete." << std::endl;
-#ifdef __DEBUG__
+#ifdef DEBUG
         system("pause");
 #endif
         break;
