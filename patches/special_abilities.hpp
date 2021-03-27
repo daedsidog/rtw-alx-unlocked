@@ -11,8 +11,8 @@
 #else
 #define formations_fix_start 0x91a30f - IMAGE_BASE
 #define formations_fix_end   0x91a32c - IMAGE_BASE
-#define swimming_fix_start   0x91931 - IMAGE_BASE
-#define swimming_fix_end     0x91938 - IMAGE_BASE
+#define swimming_fix_start   0x919a31 - IMAGE_BASE
+#define swimming_fix_end     0x919a38 - IMAGE_BASE
 #endif
 
 class special_abilities {
