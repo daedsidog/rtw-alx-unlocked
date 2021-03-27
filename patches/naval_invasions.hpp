@@ -1,3 +1,6 @@
+#ifndef NAVAL_INVASIONS_HPP_
+#define NAVAL_INVASIONS_HPP_
+
 #define IMAGE_BASE 0x400000
 
 #ifdef STEAM
@@ -15,3 +18,5 @@ class naval_invasions {
   public:
     static void patch();
 };
+
+#endif

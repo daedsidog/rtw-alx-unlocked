@@ -1,3 +1,6 @@
+#ifndef FORMATIONS_HPP_
+#define FORMATIONS_HPP_
+
 #define IMAGE_BASE 0x400000
 
 class formations {
@@ -6,3 +9,5 @@ class formations {
   public:
     static void patch();
 };
+
+#endif
