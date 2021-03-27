@@ -1,3 +1,8 @@
+// This is a wrapper for the RomeTW-ALX.exe in case you cannot execute it directly.
+// Keep in mind that you must rename the original executable as well, according to the macro EXE_NAME.
+//
+// Code is based on https://github.com/daedsidog/win-dll-loader.
+
 #include <sstream>
 #include <iostream>
 #include <string>
