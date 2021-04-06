@@ -85,21 +85,28 @@ void special_abilities::patch() {
     AHI::init();
     std::cout << "Enabling shield_wall and schiltrom formations..."
               << std::endl;
-    AHI::inject_func(formations_fix_start, formations_fix_end,
+    AHI::inject_func(AHI::get_abs_addr(IMAGE_BASE, formations_fix_start_vaddr),
+                     AHI::get_abs_addr(IMAGE_BASE, formations_fix_end_vaddr),
                      (LPVOID)enable_bi_formations);
     std::cout << "Enabling swimming ability..." << std::endl;
 #ifndef STEAM
-    abilities_ifchain_end = AHI::get_abs_addr(IMAGE_BASE, 0x8d479d);
+    abilities_ifchain_end =
+        AHI::get_abs_addr(IMAGE_BASE, abilities_ifchain_end_vaddr);
 #else
-    abilities_ifchain_end = AHI::get_abs_addr(IMAGE_BASE, 0x919fd7);
-    swimming_ifchain_end  = AHI::get_abs_addr(IMAGE_BASE, 0x919a3d);
-    hording_ifchain_end   = AHI::get_abs_addr(IMAGE_BASE, 0x919a56);
+    abilities_ifchain_end =
+        AHI::get_abs_addr(IMAGE_BASE, abilities_ifchain_end_vaddr);
+    swimming_ifchain_end =
+        AHI::get_abs_addr(IMAGE_BASE, swimming_ifchain_end_vaddr);
+    hording_ifchain_end =
+        AHI::get_abs_addr(IMAGE_BASE, hording_ifchain_end_vaddr);
 #endif
-    AHI::inject_func(swimming_ability_enable_fix_start,
-                     swimming_ability_enable_fix_end,
-                     (LPVOID)enable_swimming_ability);
+    AHI::inject_func(
+        AHI::get_abs_addr(IMAGE_BASE, swimming_ability_enable_fix_start_vaddr),
+        AHI::get_abs_addr(IMAGE_BASE, swimming_ability_enable_fix_end_vaddr),
+        (LPVOID)enable_swimming_ability);
     std::cout << "Enabling hording ability..." << std::endl;
-    AHI::inject_func(hording_ability_enable_fix_start,
-                     hording_ability_enable_fix_end,
-                     (LPVOID)enable_hording_ability);
+    AHI::inject_func(
+        AHI::get_abs_addr(IMAGE_BASE, hording_ability_enable_fix_start_vaddr),
+        AHI::get_abs_addr(IMAGE_BASE, hording_ability_enable_fix_end_vaddr),
+        (LPVOID)enable_hording_ability);
 }

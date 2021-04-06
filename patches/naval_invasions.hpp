@@ -1,14 +1,13 @@
-#ifndef NAVAL_INVASIONS_HPP_
-#define NAVAL_INVASIONS_HPP_
+#pragma once
 
 #define IMAGE_BASE 0x400000
 
 #ifdef STEAM
-#define naval_invasions_patch_start 0x8faaf9 - IMAGE_BASE
-#define naval_invasions_patch_end   0x8faafe - IMAGE_BASE
+#define naval_invasions_patch_start_vaddr 0x8faaf9
+#define naval_invasions_patch_end_vaddr   0x8faafe
 #else
-#define naval_invasions_patch_start 0x8ac81e - IMAGE_BASE
-#define naval_invasions_patch_end   0x8ac825 - IMAGE_BASE
+#define naval_invasions_patch_start_vaddr 0x8ac81e
+#define naval_invasions_patch_end_vaddr   0x8ac825
 #endif
 
 class naval_invasions {
@@ -18,5 +17,3 @@ class naval_invasions {
   public:
     static void patch();
 };
-
-#endif
