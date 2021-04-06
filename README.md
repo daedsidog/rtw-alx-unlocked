@@ -4,7 +4,7 @@ A memory patch for `RomeTW-ALX.exe` for Windows with the goal of fixing bugs & r
 # Changes
 * Fix AI not using naval invasions.
 * Add shield wall & schiltrom formations.
-* Add swimming ability.
+* Add swimming ability (units can't swim yet, however).
 
 # Steam
 While the patch is attempting to provide Steam compatibility, it is not guaranteed because thorough testing is done only on the CD version.
