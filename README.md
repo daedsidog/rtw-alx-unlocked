@@ -5,6 +5,7 @@ A memory patch for `RomeTW-ALX.exe` for Windows with the goal of porting over `R
 * Fix AI not using naval invasions.
 * Add shield wall & schiltrom formations.
 * Add swimming ability.
+* Add hording ability (Hording functionality does not yet work).
 
 # Usage
 The appropriate DLL has to be loaded into the `RomeTW-ALX.exe` process **right at the very beginning**. The best way to do this is to use a DLL loader such as [daedsidog/win-dll-loader](https://github.com/daedsidog/win-dll-loader).
