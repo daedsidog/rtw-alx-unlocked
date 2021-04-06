@@ -14,8 +14,10 @@ void __declspec(naked) special_abilities::enable_bi_formations() {
             // just delete the two instructions occupying this injection range.
     }
 }
-uintptr_t swimming_scope_exit;
-void __declspec(naked) special_abilities::enable_swimming() {
+uintptr_t abilities_ifchain_end;
+uintptr_t swimming_ifchain_end;
+void __declspec(naked) special_abilities::enable_swimming_ability() {
+
     // Taken almost verbatim from the old RTR launcher, except for Steam
     // version.
     asm {
@@ -26,35 +28,78 @@ void __declspec(naked) special_abilities::enable_swimming() {
         or al, 0x40
         mov [edi + 0x200], al
         add esp, 0x4
-        push swimming_scope_exit
+        push abilities_ifchain_end
 #else
+
+        // The unit attribute offsets may be wrong. Requires testing.
         movzx eax, al
         test eax, eax
         jnz can_swim
-        push swimming_scope_exit
-        jmp cannot_swim
+        add esp, 0x4
+        push swimming_ifchain_end
+        ret
         can_swim:
         mov al, byte ptr[ecx + 0x200]
         or al, 0x40
-        mov [ecx + 0x199], al // Not sure about this.
+        mov [ecx + 0x199], al
         add esp, 0x4
+        push abilities_ifchain_end
 #endif
         cannot_swim:
+        ret
+    }
+}
+uintptr_t hording_ifchain_end;
+void __declspec(naked) special_abilities::enable_hording_ability() {
+    asm {
+#ifndef STEAM
+        test eax, eax
+        jz cannot_horde
+        mov al, byte ptr[edi + 0x201]
+        or al, 0x80
+        mov [edi + 0x200], al
+        add esp, 0x4
+        push abilities_ifchain_end
+#else
+
+        // The unit attribute offsets may be wrong. Requires testing.
+        movzx eax, al
+        test eax, eax
+        jnz can_horde
+        add esp, 0x4
+        push hording_ifchain_end
+        ret
+        can_horde:
+        mov al, byte ptr[ecx + 0x200]
+        or al, 0x80
+        mov[ecx + 0x199], al
+        add esp, 0x4
+        push abilities_ifchain_end
+#endif
+        cannot_horde:
         ret
     }
 }
 
 void special_abilities::patch() {
     AHI::init();
-    std::cout << "Adding shield_wall and schiltrom formations..." << std::endl;
+    std::cout << "Enabling shield_wall and schiltrom formations..."
+              << std::endl;
     AHI::inject_func(formations_fix_start, formations_fix_end,
                      (LPVOID)enable_bi_formations);
-    std::cout << "Adding swimming..." << std::endl;
+    std::cout << "Enabling swimming ability..." << std::endl;
 #ifndef STEAM
-    swimming_scope_exit = AHI::get_abs_addr(IMAGE_BASE, 0x008d479d);
+    abilities_ifchain_end = AHI::get_abs_addr(IMAGE_BASE, 0x8d479d);
+    swimming_ifchain_end = AHI::get_abs_addr(IMAGE_BASE, 0x919a3d);
+    hording_ifchain_end = AHI::get_abs_addr(IMAGE_BASE, 0x919a56);
 #else
-    swimming_scope_exit = AHI::get_abs_addr(IMAGE_BASE, 0x00919a3d);
+    abilities_ifchain_end = AHI::get_abs_addr(IMAGE_BASE, 0x919a56);
 #endif
-    AHI::inject_func(swimming_fix_start, swimming_fix_end,
-                     (LPVOID)enable_swimming);
+    AHI::inject_func(swimming_ability_enable_fix_start,
+                     swimming_ability_enable_fix_end,
+                     (LPVOID)enable_swimming_ability);
+    std::cout << "Enabling hording ability..." << std::endl;
+    AHI::inject_func(hording_ability_enable_fix_start,
+                     hording_ability_enable_fix_end,
+                     (LPVOID)enable_hording_ability);
 }

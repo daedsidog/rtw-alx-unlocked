@@ -4,22 +4,27 @@
 #define IMAGE_BASE 0x400000
 
 #ifndef STEAM
-#define formations_fix_start 0x8d4964 - IMAGE_BASE
-#define formations_fix_end   0x8d4970 - IMAGE_BASE
-#define swimming_fix_start   0x8d43c1 - IMAGE_BASE
-#define swimming_fix_end     0x8d43c9 - IMAGE_BASE
+#define formations_fix_start              0x8d4964 - IMAGE_BASE
+#define formations_fix_end                0x8d4970 - IMAGE_BASE
+#define swimming_ability_enable_fix_start 0x8d43c1 - IMAGE_BASE
+#define swimming_ability_enable_fix_end   0x8d43c9 - IMAGE_BASE
+#define hording_ability_enable_fix_start  0x8d43d8 - IMAGE_BASE
+#define hording_ability_enable_fix_end    0x8d43e0 - IMAGE_BASE
 #else
-#define formations_fix_start 0x91a30f - IMAGE_BASE
-#define formations_fix_end   0x91a32c - IMAGE_BASE
-#define swimming_fix_start   0x919a31 - IMAGE_BASE
-#define swimming_fix_end     0x919a38 - IMAGE_BASE
+#define formations_fix_start              0x91a30f - IMAGE_BASE
+#define formations_fix_end                0x91a32c - IMAGE_BASE
+#define swimming_ability_enable_fix_start 0x919a31 - IMAGE_BASE
+#define swimming_ability_enable_fix_end   0x919a38 - IMAGE_BASE
+#define hording_ability_enable_fix_start  0x919a4d - IMAGE_BASE
+#define hording_ability_enable_fix_end    0x919a51 - IMAGE_BASE
 #endif
 
 class special_abilities {
     special_abilities() = delete;
 
     static void __declspec(naked) enable_bi_formations();
-    static void __declspec(naked) enable_swimming();
+    static void __declspec(naked) enable_swimming_ability();
+    static void __declspec(naked) enable_hording_ability();
 
   public:
     static void patch();
