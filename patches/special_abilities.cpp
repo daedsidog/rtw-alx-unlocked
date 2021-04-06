@@ -90,10 +90,10 @@ void special_abilities::patch() {
     std::cout << "Enabling swimming ability..." << std::endl;
 #ifndef STEAM
     abilities_ifchain_end = AHI::get_abs_addr(IMAGE_BASE, 0x8d479d);
-    swimming_ifchain_end = AHI::get_abs_addr(IMAGE_BASE, 0x919a3d);
-    hording_ifchain_end = AHI::get_abs_addr(IMAGE_BASE, 0x919a56);
 #else
-    abilities_ifchain_end = AHI::get_abs_addr(IMAGE_BASE, 0x919a56);
+    abilities_ifchain_end = AHI::get_abs_addr(IMAGE_BASE, 0x919fd7);
+    swimming_ifchain_end  = AHI::get_abs_addr(IMAGE_BASE, 0x919a3d);
+    hording_ifchain_end   = AHI::get_abs_addr(IMAGE_BASE, 0x919a56);
 #endif
     AHI::inject_func(swimming_ability_enable_fix_start,
                      swimming_ability_enable_fix_end,
