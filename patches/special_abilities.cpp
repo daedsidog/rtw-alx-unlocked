@@ -24,14 +24,12 @@ void __declspec(naked) special_abilities::enable_swimming_ability() {
 #ifndef STEAM
         test eax, eax
         jz cannot_swim
-        mov al, byte ptr[edi + 0x201]
+        mov al, byte ptr[edi + 0x200]
         or al, 0x40
         mov [edi + 0x200], al
         add esp, 0x4
         push abilities_ifchain_end
 #else
-
-        // The unit attribute offsets may be wrong. Requires testing.
         movzx eax, al
         test eax, eax
         jnz can_swim
@@ -41,7 +39,7 @@ void __declspec(naked) special_abilities::enable_swimming_ability() {
         can_swim:
         mov al, byte ptr[ecx + 0x200]
         or al, 0x40
-        mov [ecx + 0x199], al
+        mov [ecx + 0x200], al
         add esp, 0x4
         push abilities_ifchain_end
 #endif
@@ -55,14 +53,12 @@ void __declspec(naked) special_abilities::enable_hording_ability() {
 #ifndef STEAM
         test eax, eax
         jz cannot_horde
-        mov al, byte ptr[edi + 0x201]
+        mov al, byte ptr[edi + 0x200]
         or al, 0x80
         mov [edi + 0x200], al
         add esp, 0x4
         push abilities_ifchain_end
 #else
-
-        // The unit attribute offsets may be wrong. Requires testing.
         movzx eax, al
         test eax, eax
         jnz can_horde
@@ -72,7 +68,7 @@ void __declspec(naked) special_abilities::enable_hording_ability() {
         can_horde:
         mov al, byte ptr[ecx + 0x200]
         or al, 0x80
-        mov[ecx + 0x199], al
+        mov[ecx + 0x200], al
         add esp, 0x4
         push abilities_ifchain_end
 #endif
