@@ -76,6 +76,7 @@ void __declspec(naked) bi_features::enable_hording_ability() {
         ret
     }
 }
+#ifndef STEAM
 char *    horde_min_units;
 char *    horde_max_units;
 char *    horde_max_units_reduction_every_horde;
@@ -88,9 +89,13 @@ uintptr_t hording_init_end;
 uintptr_t hording_enable_flag;
 uintptr_t some_parsing_func;
 uintptr_t strparse_func;
+#else
+uintptr_t hording_enabled_flag;
+#endif
 
 void bi_features::enable_hording_functionality() {
     asm {
+#ifndef STEAM
         add esp, 0x4
         case_horde_min_units:
 		push horde_min_units
@@ -253,13 +258,19 @@ void bi_features::enable_hording_functionality() {
         jnz case_special_horde_unit
 		end:
         push hording_init_end
+#else
+        lea ecx, [ebp - 0x154]
+        push eax
+        mov eax, hording_enabled_flag
+        mov byte ptr [eax], 0x1
+        pop eax
+#endif
         ret
     }
 }
 void bi_features::patch() {
     AHI::init();
-    std::cout << "Enabling shield_wall & schiltrom formations..."
-              << std::endl;
+    std::cout << "Enabling shield_wall & schiltrom formations..." << std::endl;
     AHI::inject_func(AHI::get_offset(IMAGE_BASE, formations_fix_start_vaddr),
                      AHI::get_offset(IMAGE_BASE, formations_fix_end_vaddr),
                      (LPVOID)enable_bi_formations);
@@ -267,10 +278,6 @@ void bi_features::patch() {
 #ifndef STEAM
     abilities_ifchain_end =
         AHI::get_abs_addr(IMAGE_BASE, abilities_ifchain_end_vaddr);
-    some_parsing_func = AHI::get_abs_addr(IMAGE_BASE, some_parsing_func_vaddr);
-    strparse_func     = AHI::get_abs_addr(IMAGE_BASE, strparse_func_vaddr);
-    hording_init_end  = AHI::get_abs_addr(
-        IMAGE_BASE, hording_functionality_enable_fix_end_vaddr);
 #else
     abilities_ifchain_end =
         AHI::get_abs_addr(IMAGE_BASE, abilities_ifchain_end_vaddr);
@@ -284,6 +291,11 @@ void bi_features::patch() {
         AHI::get_offset(IMAGE_BASE, swimming_ability_enable_fix_end_vaddr),
         (LPVOID)enable_swimming_ability);
     std::cout << "Enabling hording ability & functionality..." << std::endl;
+#ifndef STEAM
+    some_parsing_func = AHI::get_abs_addr(IMAGE_BASE, some_parsing_func_vaddr);
+    strparse_func     = AHI::get_abs_addr(IMAGE_BASE, strparse_func_vaddr);
+    hording_init_end  = AHI::get_abs_addr(
+        IMAGE_BASE, hording_functionality_enable_fix_end_vaddr);
 #define defstr(x, y) x = (char *)AHI::get_abs_addr(IMAGE_BASE, y);
     defstr(horde_min_units, horde_min_units_vaddr);
     defstr(horde_max_units, horde_max_units_vaddr);
@@ -296,6 +308,10 @@ void bi_features::patch() {
     defstr(horde_disband_percent_on_settlement_cap,
            horde_disband_percent_on_settlement_cap_vaddr);
     defstr(horde_unit, horde_unit_vaddr);
+#else
+    hording_enabled_flag =
+        AHI::get_abs_addr(IMAGE_BASE, hording_enabled_flag_vaddr);
+#endif
     AHI::inject_func(
         AHI::get_offset(IMAGE_BASE, hording_ability_enable_fix_start_vaddr),
         AHI::get_offset(IMAGE_BASE, hording_ability_enable_fix_end_vaddr),
