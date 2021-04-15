@@ -1,9 +1,9 @@
 #include <iostream>
 
 #include "../assembler-hooker-injector/ahi.hpp"
-#include "special_abilities.hpp"
+#include "bi_features.hpp"
 
-void __declspec(naked) special_abilities::enable_bi_formations() {
+void __declspec(naked) bi_features::enable_bi_formations() {
     asm {
 #ifdef STEAM
         mov dword ptr [ebp - 0x574], 7
@@ -16,7 +16,7 @@ void __declspec(naked) special_abilities::enable_bi_formations() {
 }
 uintptr_t abilities_ifchain_end;
 uintptr_t swimming_ifchain_end;
-void __declspec(naked) special_abilities::enable_swimming_ability() {
+void __declspec(naked) bi_features::enable_swimming_ability() {
 
     // Taken almost verbatim from the old RTR launcher, except for Steam
     // version.
@@ -48,7 +48,7 @@ void __declspec(naked) special_abilities::enable_swimming_ability() {
     }
 }
 uintptr_t hording_ifchain_end;
-void __declspec(naked) special_abilities::enable_hording_ability() {
+void __declspec(naked) bi_features::enable_hording_ability() {
     asm {
 #ifndef STEAM
         test eax, eax
@@ -89,7 +89,7 @@ uintptr_t hording_enable_flag;
 uintptr_t some_parsing_func;
 uintptr_t strparse_func;
 
-void special_abilities::enable_hording_functionality() {
+void bi_features::enable_hording_functionality() {
     asm {
         add esp, 0x4
         case_horde_min_units:
@@ -256,9 +256,9 @@ void special_abilities::enable_hording_functionality() {
         ret
     }
 }
-void special_abilities::patch() {
+void bi_features::patch() {
     AHI::init();
-    std::cout << "Enabling shield_wall and schiltrom formations..."
+    std::cout << "Enabling shield_wall & schiltrom formations..."
               << std::endl;
     AHI::inject_func(AHI::get_offset(IMAGE_BASE, formations_fix_start_vaddr),
                      AHI::get_offset(IMAGE_BASE, formations_fix_end_vaddr),
@@ -267,8 +267,6 @@ void special_abilities::patch() {
 #ifndef STEAM
     abilities_ifchain_end =
         AHI::get_abs_addr(IMAGE_BASE, abilities_ifchain_end_vaddr);
-    hording_enable_flag =
-        AHI::get_abs_addr(IMAGE_BASE, hording_enable_flag_vaddr);
     some_parsing_func = AHI::get_abs_addr(IMAGE_BASE, some_parsing_func_vaddr);
     strparse_func     = AHI::get_abs_addr(IMAGE_BASE, strparse_func_vaddr);
     hording_init_end  = AHI::get_abs_addr(

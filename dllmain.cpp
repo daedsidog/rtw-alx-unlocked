@@ -2,7 +2,7 @@
 #include <windows.h>
 
 #include "patches/naval_invasions.hpp"
-#include "patches/special_abilities.hpp"
+#include "patches/bi_features.hpp"
 
 bool WINAPI DllMain(HINSTANCE hinst, DWORD call_reason, LPVOID reserved) {
     switch (call_reason) {
@@ -60,7 +60,7 @@ bool WINAPI DllMain(HINSTANCE hinst, DWORD call_reason, LPVOID reserved) {
 #endif
         std::cout << "patches..." << std::endl;
         naval_invasions::patch();
-        special_abilities::patch();
+        bi_features::patch();
 #endif
         std::cout << "Patching complete." << std::endl;
 #ifdef DEBUG
