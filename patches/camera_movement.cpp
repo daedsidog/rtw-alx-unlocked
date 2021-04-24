@@ -29,9 +29,12 @@ void __declspec(naked) camera_movement::fix_camera_jump() {
         cmp eax, 0x2
         jne skip_fix
         mov dword ptr [edx], 0x1
+        skip_fix:
         pop edx
+        ret
 #endif
         skip_fix:
+        pop eax
         ret
     }
 }
