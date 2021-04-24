@@ -6,7 +6,7 @@ A memory patch for the lastest (1.9) `RomeTW-ALX.exe` for Windows with the goal 
 * Add swimming ability.
 * Add hording ability & functionality for factions.
 * Fix AI not using naval invasions.
-* Fix camera bug when jumping to units.
+* Fix camera not jumping to unit when interrupted.
 
 # Usage
 The appropriate DLL has to be loaded into the `RomeTW-ALX.exe` (`testappa.exe` if using Steam) process **right at the very beginning**. The best way to do this is to use a DLL loader such as [daedsidog/win-dll-loader](https://github.com/daedsidog/win-dll-loader).
