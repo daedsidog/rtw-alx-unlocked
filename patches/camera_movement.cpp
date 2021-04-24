@@ -21,7 +21,9 @@ void __declspec(naked) camera_movement::fix_camera_jump() {
         jne skip_fix
 
         mov dword ptr [eax], 0x1
+        skip_fix:
         pop eax
+        ret
 #else
         push edx
         mov edx, camera_movement_mode
@@ -33,9 +35,6 @@ void __declspec(naked) camera_movement::fix_camera_jump() {
         pop edx
         ret
 #endif
-        skip_fix:
-        pop eax
-        ret
     }
 }
 
