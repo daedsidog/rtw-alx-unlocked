@@ -44,7 +44,7 @@
 
 // Hording (Ability)
 #define hording_ifchain_end_vaddr               0x919a56
-#define hording_ability_enable_fix_start_vaddr  0x919a4d
+#define hording_ability_enable_fix_start_vaddr  0x919a4a
 #define hording_ability_enable_fix_end_vaddr    0x919a51
 
 // Hording (Functionality)

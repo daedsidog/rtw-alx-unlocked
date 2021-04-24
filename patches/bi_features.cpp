@@ -296,7 +296,7 @@ void bi_features::patch() {
     strparse_func     = AHI::get_abs_addr(IMAGE_BASE, strparse_func_vaddr);
     hording_init_end  = AHI::get_abs_addr(
         IMAGE_BASE, hording_functionality_enable_fix_end_vaddr);
-#define defstr(x, y) x = (char *)AHI::get_abs_addr(IMAGE_BASE, y);
+    #define defstr(x, y) x = (char *)AHI::get_abs_addr(IMAGE_BASE, y);
     defstr(horde_min_units, horde_min_units_vaddr);
     defstr(horde_max_units, horde_max_units_vaddr);
     defstr(horde_max_units_reduction_every_horde,

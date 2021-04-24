@@ -1,5 +1,6 @@
-// This is a wrapper for the RomeTW-ALX.exe in case you cannot execute it directly.
-// Keep in mind that you must rename the original executable as well, according to the macro EXE_NAME.
+// This is a wrapper for the RomeTW-ALX.exe in case you cannot execute it
+// directly. Keep in mind that you must rename the original executable as well,
+// according to the macro EXE_NAME.
 //
 // Code is based on https://github.com/daedsidog/win-dll-loader.
 
@@ -9,14 +10,14 @@
 #include <list>
 #include <windows.h>
 
-#define BUFSIZE 1024
-#define EXE_NAME "alx.exe"
+#define BUFSIZE       1024
+#define EXE_NAME      "alx.exe"
 #define DLL_BASE_NAME "rtw-alx-unlocked"
 
 int main(int argc, char **argv) {
-    STARTUPINFO start_info = {sizeof(start_info)};
+    STARTUPINFO         start_info = {sizeof(start_info)};
     PROCESS_INFORMATION process_info;
-    std::string dll_name = DLL_BASE_NAME;
+    std::string         dll_name = DLL_BASE_NAME;
 #ifdef STEAM
     dll_name = dll_name + "_steam";
 #endif
@@ -36,24 +37,22 @@ int main(int argc, char **argv) {
     if (CreateProcess(nullptr, &(args.str())[0], nullptr, nullptr, FALSE,
                       CREATE_SUSPENDED, nullptr, nullptr, &start_info,
                       &process_info)) {
-        LPVOID page =
-            VirtualAllocEx(process_info.hProcess, nullptr, BUFSIZE,
-                           MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+        LPVOID page = VirtualAllocEx(process_info.hProcess, nullptr, BUFSIZE,
+                                     MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
         if (page == nullptr) {
             std::cerr << "VirtualAllocEx error: " << GetLastError()
                       << std::endl;
             return -1;
         }
-        if (WriteProcessMemory(process_info.hProcess, page,
-                               dll_name.c_str(), dll_name.length(),
-                               nullptr) == 0) {
+        if (WriteProcessMemory(process_info.hProcess, page, dll_name.c_str(),
+                               dll_name.length(), nullptr) == 0) {
             std::cerr << "WriteProcessMemory error: " << GetLastError()
                       << std::endl;
             return -1;
         }
-        HANDLE thread = CreateRemoteThread(
-            process_info.hProcess, nullptr, 0,
-            (LPTHREAD_START_ROUTINE)LoadLibraryA, page, 0, nullptr);
+        HANDLE thread = CreateRemoteThread(process_info.hProcess, nullptr, 0,
+                                           (LPTHREAD_START_ROUTINE)LoadLibraryA,
+                                           page, 0, nullptr);
         if (thread == nullptr) {
             std::cerr << "CreateRemoteThread error: " << GetLastError()
                       << std::endl;
@@ -71,10 +70,8 @@ int main(int argc, char **argv) {
             return -1;
         }
         CloseHandle(process_info.hProcess);
-        if (!VirtualFreeEx(process_info.hProcess, page, BUFSIZE,
-                           MEM_RELEASE)) {
-            std::cerr << "VirtualFreeEx error: " << GetLastError()
-                      << std::endl;
+        if (!VirtualFreeEx(process_info.hProcess, page, BUFSIZE, MEM_RELEASE)) {
+            std::cerr << "VirtualFreeEx error: " << GetLastError() << std::endl;
             return -1;
         }
         return 0;
