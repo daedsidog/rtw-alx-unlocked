@@ -50,6 +50,7 @@ bool WINAPI DllMain(HINSTANCE hinst, DWORD call_reason, LPVOID reserved) {
         std::cerr.clear();
         std::wcin.clear();
         std::cin.clear();
+#endif
 
         // Apply patches
         std::cout << "Applying ";
@@ -61,7 +62,6 @@ bool WINAPI DllMain(HINSTANCE hinst, DWORD call_reason, LPVOID reserved) {
         std::cout << "patches..." << std::endl;
         naval_invasions::patch();
         bi_features::patch();
-#endif
         std::cout << "Patching complete." << std::endl;
 #ifdef DEBUG
         system("pause");
