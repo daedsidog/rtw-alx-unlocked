@@ -13,3 +13,6 @@ Alternatively, you can compile [`wrapper/main.cpp`](https://github.com/daedsidog
 
 # Steam
 While the patch is attempting to provide Steam compatibility, it is not guaranteed because thorough testing is done only on the CD version.
+
+# Malware concerns
+Due to the nature of memory patching & code injection, some antivirus software may label the DLLs as a false positive. There is no immediate solution other than excluding these files in your AV program. Anyone pedantic enough is free to compile the DLLs himself using the included makefile.
