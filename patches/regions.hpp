@@ -36,8 +36,8 @@
 #define rar_2_end_vaddr    0x008B1F5D
 #define rar_3_start_vaddr  0x008B207A
 #define rar_3_end_vaddr    0x008B2080
-#define rar_4_start_vaddr  0x008B2597
-#define rar_4_end_vaddr    0x008B259D
+#define rar_4_start_vaddr  0x008B259D
+#define rar_4_end_vaddr    0x008B25A2
 #define rar_5_start_vaddr  0x008B26E1
 #define rar_5_end_vaddr    0x008B26EE
 #define rar_6_start_vaddr  0x008B2092
