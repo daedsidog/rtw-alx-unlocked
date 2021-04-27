@@ -57,6 +57,7 @@ __declspec(naked) void regions::redirect_regions_arr_3() {
         // mov edi, regions_arr_0[eax]
         mov edi, regions_arr_0
         add edi, eax
+        mov edi, [edi]
         ret
     }
 }
@@ -137,9 +138,12 @@ __declspec(naked) void regions::redirect_regions_arr_8() {
         add eax, ebp
         mov dword ptr [eax], 0x15
 
+        mov [esp + 0x24], ecx
+
         xor ecx, ecx
         mov eax, regions_arr_7
         add eax, ebp
+        mov eax, [eax]
         cmp eax, 0x0
         pop eax
         ret
@@ -242,7 +246,7 @@ __declspec(naked) void regions::redirect_regions_arr_17() {
         push eax
         mov eax, regions_arr_4
         add eax, ebp
-        mov eax, dword ptr [eax]
+        mov eax, [eax]
         cmp eax, 0x0
         pop eax
         ret
@@ -351,7 +355,7 @@ __declspec(naked) void regions::redirect_regions_arr_23() {
         mov [esi+0x0B4], edx
         mov edi, regions_arr_15
         add edi, ebp
-        mov edi, dword ptr [edi]
+        mov edi, [edi]
         mov [esi+0x0B8], edi
         mov edi, regions_arr_16
         add edi, ebp
@@ -400,7 +404,7 @@ __declspec(naked) void regions::redirect_regions_arr_24() {
         inc ecx
         mov edi, regions_arr_7
         add edi, ebp
-        mov edi, dword ptr [edi]
+        mov edi, [edi]
         cmp ecx, edi
         pop edi
         ret
@@ -433,7 +437,7 @@ __declspec(naked) void regions::redirect_regions_arr_26() {
         inc ecx
         mov edi, regions_arr_9
         add edi, ebp
-        mov edi, dword ptr [edi]
+        mov edi, [edi]
         cmp ecx, edi
         pop edi
         ret
@@ -471,7 +475,7 @@ __declspec(naked) void regions::redirect_regions_arr_29() {
         push edi
         mov edi, regions_arr_5
         add edi, ebp
-        mov edi, dword ptr [edi]
+        mov edi, [edi]
         cmp edi, 0x0
         pop edi
         ret
@@ -499,7 +503,7 @@ __declspec(naked) void regions::redirect_regions_arr_31() {
         push edi
         mov edi, regions_arr_6
         add edi, ebp
-        mov edi, dword ptr [edi]
+        mov edi, [edi]
         mov [esp + 0x8], edi
         pop edi
         ret
@@ -554,7 +558,7 @@ __declspec(naked) void regions::redirect_regions_arr_35() {
         inc eax
         mov edi, regions_arr_7
         add edi, ebp
-        mov edi, dword ptr [edi]
+        mov edi, [edi]
         cmp eax, edi
         pop edi
         ret
@@ -687,7 +691,7 @@ __declspec(naked) void regions::redirect_regions_arr_41() {
         add edi, ebp
         mov dword ptr [edi], 0x0
         mov edi, byte_103ba34
-        mov eax, dword ptr [edi]
+        movzx eax, byte ptr [edi]
         pop edi
         ret
     }
@@ -699,7 +703,7 @@ __declspec(naked) void regions::redirect_regions_arr_42() {
         push edi
         mov edi, regions_arr_6
         add edi, ebp
-        mov edi, dword ptr [edi]
+        mov edi, [edi]
         mov [esp + 0x8], edi
         pop edi
         ret
