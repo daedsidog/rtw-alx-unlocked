@@ -40,6 +40,7 @@ void __declspec(naked) camera_movement::fix_camera_jump() {
 
 void camera_movement::patch() {
     std::cout << "Fixing camera jump bug..." << std::endl;
+    AHI::init();
     camera_movement_mode =
         AHI::get_abs_addr(IMAGE_BASE, camera_movement_mode_vaddr);
     AHI::inject_func(AHI::get_offset(IMAGE_BASE, camera_jump_patch_start_vaddr),

@@ -6,6 +6,8 @@
 #define NEW_REGION_COUNT  1024
 #define REGION_ENTRY_SIZE 0x120
 
+#define byte_103ba34_vaddr 0x103ba34
+
 #define regions_arr_0_vaddr  0x012EA780
 #define regions_arr_1_vaddr  0x012EA784
 #define regions_arr_2_vaddr  0x012EA788

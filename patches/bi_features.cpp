@@ -270,6 +270,7 @@ void bi_features::enable_hording_functionality() {
 }
 void bi_features::patch() {
     std::cout << "Enabling shield_wall & schiltrom formations..." << std::endl;
+    AHI::init();
     AHI::inject_func(AHI::get_offset(IMAGE_BASE, formations_fix_start_vaddr),
                      AHI::get_offset(IMAGE_BASE, formations_fix_end_vaddr),
                      (LPVOID)enable_bi_formations);
