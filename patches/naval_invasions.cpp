@@ -19,7 +19,6 @@ void __declspec(naked) naval_invasions::fix_naval_invasions() {
 }
 
 void naval_invasions::patch() {
-    AHI::init();
     std::cout << "Fixing AI not using naval invasions..." << std::endl;
     AHI::inject_func(
         AHI::get_offset(IMAGE_BASE, naval_invasions_patch_start_vaddr),

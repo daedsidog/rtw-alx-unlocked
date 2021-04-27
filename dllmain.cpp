@@ -4,6 +4,7 @@
 #include "patches/naval_invasions.hpp"
 #include "patches/bi_features.hpp"
 #include "patches/camera_movement.hpp"
+#include "patches/regions.hpp"
 
 bool WINAPI DllMain(HINSTANCE hinst, DWORD call_reason, LPVOID reserved) {
     switch (call_reason) {
@@ -64,6 +65,10 @@ bool WINAPI DllMain(HINSTANCE hinst, DWORD call_reason, LPVOID reserved) {
         naval_invasions::patch();
         bi_features::patch();
         camera_movement::patch();
+#ifndef STEAM
+        regions::patch();
+#endif
+
         std::cout << "Patching complete." << std::endl;
 #ifdef DEBUG
         system("pause");

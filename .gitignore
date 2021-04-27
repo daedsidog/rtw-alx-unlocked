@@ -1,1 +1,5 @@
+# Clang files
 *.clang*
+
+# Local files
+regions_arr_refs.txt
