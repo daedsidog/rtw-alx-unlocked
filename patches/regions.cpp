@@ -76,7 +76,6 @@ __declspec(naked) void regions::redirect_regions_arr_5() {
         push eax
         mov eax, regions_arr_3
         add eax, ebp
-        mov eax, [eax]
         movzx ecx, byte ptr [eax]
         pop eax
         ret
