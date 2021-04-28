@@ -9,7 +9,6 @@ static byte regions_arr[NEW_REGION_COUNT * REGION_ENTRY_SIZE];
 #define def_regions_arr(X)                                                     \
     uintptr_t regions_arr_##X = (uintptr_t)&regions_arr +                       \
                                (regions_arr_##X##_vaddr - regions_arr_0_vaddr)
-
 def_regions_arr(0);
 def_regions_arr(1);
 def_regions_arr(2);
@@ -570,10 +569,10 @@ __declspec(naked) void regions::redirect_regions_arr_36() {
         push edi
         mov edi, regions_arr_8
         add edi, ebp
-        add edi, eax
-        add edi, eax
-        add edi, eax
-        add edi, eax
+        add edi, ebx
+        add edi, ebx
+        add edi, ebx
+        add edi, ebx
         or dword ptr [edi], edx
         pop edi
         ret
@@ -747,6 +746,32 @@ void regions::patch() {
     std::cout << "Extending region limit to " << NEW_REGION_COUNT << "..."
               << std::endl;
     AHI::init();
+    std::cout << "regions_arr location: " << (LPVOID)regions_arr << std::endl;
+
+#define print_regions_arr(X) std::cout << "regions_arr_" << #X << " loaction: " << (LPVOID)regions_arr_##X << std::endl;
+    print_regions_arr(1);
+    print_regions_arr(2);
+    print_regions_arr(3);
+    print_regions_arr(4);
+    print_regions_arr(5);
+    print_regions_arr(6);
+    print_regions_arr(7);
+    print_regions_arr(8);
+    print_regions_arr(9);
+    print_regions_arr(10);
+    print_regions_arr(11);
+    print_regions_arr(12);
+    print_regions_arr(13);
+    print_regions_arr(14);
+    print_regions_arr(15);
+    print_regions_arr(16);
+    print_regions_arr(17);
+    print_regions_arr(18);
+    print_regions_arr(19);
+    print_regions_arr(20);
+    print_regions_arr(21);
+    print_regions_arr(22);
+
     byte_103ba34 = AHI::get_abs_addr(IMAGE_BASE, byte_103ba34_vaddr);
     AHI::inject_func(AHI::get_offset(IMAGE_BASE, rar_1_start_vaddr),
                      AHI::get_offset(IMAGE_BASE, rar_1_end_vaddr),

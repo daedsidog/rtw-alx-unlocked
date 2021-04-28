@@ -11,10 +11,12 @@ bool WINAPI DllMain(HINSTANCE hinst, DWORD call_reason, LPVOID reserved) {
     case DLL_PROCESS_ATTACH:
 
 #ifdef DEBUG
+
         // Allocate a console if we're in debug mode.
         AllocConsole();
         bool  result = true;
         FILE *fp;
+
         // Redirect STDIN if the console has an input handle.
         if (GetStdHandle(STD_INPUT_HANDLE) != INVALID_HANDLE_VALUE) {
             if (freopen_s(&fp, "CONIN$", "r", stdin) != 0) {
